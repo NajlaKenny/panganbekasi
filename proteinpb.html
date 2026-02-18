@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Pangan Kota Bekasi</title>
+
+    <link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+/* ================= BASE ================= */
+
+* {
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    margin: 0;
+    background: #f5f7fa;
+    color: #333;
+}
+
+/* ================= NAVBAR ================= */
+
+.navbar {
+    background: #71c83b;
+    color: white;
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+}
+
+.logo img {
+    width: 32px;
+    height: 32px;
+}
+
+.menu {
+    display: flex;
+    gap: 20px;
+}
+
+.menu a {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+/* ================= HAMBURGER ================= */
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.hamburger span {
+    width: 24px;
+    height: 3px;
+    background: white;
+    border-radius: 2px;
+}
+
+/* ================= BREADCRUMB ================= */
+
+.breadcrumb {
+    padding: 12px 24px;
+    font-size: 14px;
+    background: white;
+}
+
+.breadcrumb a {
+    text-decoration: none;
+    color: #71c83b;
+}
+
+/* ================= HEADER ================= */
+
+.page-header {
+    padding: 20px 24px;
+    background: rgb(253, 253, 253);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.btn-share {
+    padding: 8px 16px;
+    border: 1px solid #71c83b;
+    background: white;
+    color: #71c83b;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* ================= FILTER ================= */
+
+.filter-box {
+    margin: 16px 24px;
+    background: white;
+    padding: 16px;
+    border-radius: 10px;
+}
+
+.filter-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 12px;
+}
+
+.search, select {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    width: 100%;
+}
+
+.market-info {
+    margin-top: 16px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.down { color: green; }
+.up { color: red; }
+.same { color: #3b73c8; }
+
+/* ================= CATEGORY ================= */
+
+.category {
+    padding: 12px 24px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.category button {
+    padding: 8px 14px;
+    border-radius: 20px;
+    border: none;
+    background: #eee;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.category .active {
+    background: #71c83b;
+    color: white;
+}
+
+/* ================= PRODUCTS ================= */
+
+.products {
+    padding: 16px 24px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background: white;
+    border-radius: 14px;
+    padding: 14px;
+}
+
+.card img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* ================= FOOTER ================= */
+
+footer{
+    background:#71c83b;
+    color:#ffffff;
+    padding:50px 60px 20px;
+}
+
+.footer-container{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:40px;
+}
+
+.footer-title{
+    font-size:18px;
+    font-weight:bold;
+    margin-bottom:16px;
+}
+
+.footer-item{
+    display:flex;
+    gap:12px;
+    margin-bottom:12px;
+    align-items:flex-start;
+}
+
+.footer-item i{
+    color:#ffffff;
+}
+
+.footer-social{
+    display:flex;
+    gap:14px;
+    margin-top:14px;
+}
+
+.footer-social a{
+    width:38px;
+    height:38px;
+    border:1px solid #ffffff;
+    border-radius:10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#fff;
+    transition:.3s;
+}
+
+.footer-social a:hover{
+    background:#ffffff;
+    color:#71c83b;
+}
+
+.footer-bottom{
+    margin-top:30px;
+    text-align:center;
+    border-top:1px solid rgba(255,255,255,.4);
+    padding-top:14px;
+    font-size:14px;
+}
+
+/* ================= PRODUCTS ================= */
+
+.products{
+    display:grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px,1fr));
+    gap:20px;
+    padding:16px 24px;
+}
+
+/* Desktop card (horizontal kecil) */
+.card{
+    display:flex;
+    gap:16px;
+    padding:18px;
+    background:#fff;
+    border-radius:16px;
+    border:1px solid #e5e7eb;
+    min-height:140px;
+    transition:.25s ease;
+}
+
+.card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 10px 20px rgba(0,0,0,.08);
+}
+
+.card img{
+    width:90px;
+    height:90px;
+    object-fit:cover;
+    border-radius:12px;
+}
+
+.card h3{
+    margin:0 0 6px;
+    font-size:16px;
+}
+
+.card p{
+    margin:4px 0;
+}
+
+/* ================= SHARE MODAL ================= */
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.35);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+.modal {
+    background: #fff;
+    width: 420px;
+    max-width: 92%;
+    padding: 22px;
+    border-radius: 16px;
+    box-shadow: 0 20px 40px rgba(0,0,0,.2);
+    animation: popup .25s ease;
+}
+
+@keyframes popup {
+    from { transform: scale(.9); opacity: 0; }
+    to   { transform: scale(1); opacity: 1; }
+}
+
+/* HEADER */
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.close {
+    font-size: 24px;
+    cursor: pointer;
+    line-height: 1;
+}
+
+/* SOCIAL */
+
+.socials {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 22px;
+}
+
+.social {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: #eef4ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.social:hover {
+    transform: scale(1.08);
+}
+
+/* INPUT AREA */
+
+.label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    background: #f1f3f5;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 14px;
+}
+
+.input-group input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    padding: 12px;
+    outline: none;
+    font-size: 14px;
+}
+
+.copy-btn {
+    background: #e5e7eb;
+    border: none;
+    padding: 0 16px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* NOTE */
+
+.note {
+    font-size: 13px;
+    color: #555;
+    margin-top: 4px;
+}
+
+@media (max-width:480px){
+    .socials{
+        justify-content: space-between;
+    }
+
+    .social{
+        width:50px;
+        height:50px;
+        font-size:22px;
+    }
+}
+
+
+/* ================= MOBILE APP STYLE ================= */
+
+@media (max-width:768px){
+
+    .products{
+        grid-template-columns: repeat(2,1fr);
+        padding:12px;
+        gap:14px;
+    }
+
+    /* Card jadi vertikal besar */
+    .card{
+        flex-direction:column;
+        padding:14px;
+        min-height:auto;
+    }
+
+    .card img{
+        width:100%;
+        height:160px;
+        border-radius:14px;
+    }
+}
+
+
+/* HP kecil */
+@media (max-width:480px){
+
+    .products{
+        grid-template-columns:1fr;
+    }
+
+    .card img{
+        height:190px;
+    }
+}
+
+
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 768px) {
+    .filter-row {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .hamburger {
+        display: flex;
+    }
+
+    .menu {
+        position: absolute;
+        top: 60px;
+        left: 0;
+        right: 0;
+        background: #71c83b;
+        flex-direction: column;
+        display: none;
+        padding: 16px 24px;
+    }
+
+    .menu a {
+        padding: 10px 0;
+        border-top: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .menu.show {
+        display: flex;
+    }
+
+    .filter-row {
+        grid-template-columns: 1fr;
+    }
+
+    .category {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+    }
+
+    .products {
+        grid-template-columns: 1fr;
+    }
+
+    .card img {
+        height: 180px;
+    }
+
+
+
+}
+</style>
+
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<header class="navbar">
+    <div class="logo">
+        <img src="logo-dark.svg" alt="Logo">
+        <span>DASHBOARD<br><strong>KOTA BEKASI</strong></span>
+    </div>
+
+    <div class="hamburger" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <nav class="menu" id="menu">
+        <a href="beranda.html">Beranda</a>
+        <a href="tentang.html">Tentang</a>
+    </nav>
+</header>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+    <a href="beranda.html">Beranda</a> ›
+    <span>Dashboard Pangan Kota Bekasi</span>
+</div>
+
+<!-- TITLE -->
+<div class="page-header">
+    <h1>Dashboard Pangan Kota Bekasi</h1>
+   <button class="btn-share" onclick="openModal()">Bagikan</button>
+</div>
+
+<div class="modal-overlay" id="modal">
+    <div class="modal">
+
+        <div class="modal-header">
+            <h2>Bagikan</h2>
+            <span class="close" onclick="closeModal()">×</span>
+        </div>
+
+        <div class="socials">
+            <div class="social">🟢</div>
+            <div class="social">📘</div>
+            <div class="social">✈️</div>
+            <div class="social">🐦</div>
+        </div>
+
+        <label class="label">Page Link</label>
+        <div class="input-group">
+            <input id="pageLink" value="https://dashboard.jabarprov.go.id/id/dashboard-static/pangan">
+            <button class="copy-btn" onclick="copyText('pageLink')">📋</button>
+        </div>
+
+        <label class="label">Embed Dashboard</label>
+        <div class="input-group">
+            <input id="embedCode" value='<iframe src="https://dashboard.jabarprov.go.id/id"></iframe>'>
+            <button class="copy-btn" onclick="copyText('embedCode')">📋</button>
+        </div>
+
+        <div class="note">
+            ℹ Terkendala melakukan embed script? Hubungi tim Dashboard Jabar
+        </div>
+
+    </div>
+</div>
+
+
+<!-- FILTER -->
+<section class="filter-box">
+    <div class="filter-row">
+        <select><option>Kota Bekasi</option></select>
+       <select onchange="pindahPasar(this.value)">
+    <option value="">Pilih Pasar</option>
+    <option value="index.html">Pasar Atrium Pondok Gede</option>
+    <option value="indexpb.html" selected>Pasar Baru Bekasi</option>
+    <option value="kranji.html">Pasar Kranji</option>
+</select>
+        <select><option>Semua</option></select>
+    </div>
+
+    <div class="market-info">
+        <strong>Kota Bekasi - Pasar Baru Bekasi</strong>
+        <div>
+            <span class="down">↓ Turun</span>
+            <span class="up"> ↑ Naik</span>
+            <span class="same"> – Tetap</span>
+        </div>
+    </div>
+
+    
+</section>
+
+<!-- CATEGORY -->
+<section class="category">
+    <a href="indexpb.html">
+        <button>Beras, tepung, minyak</button>
+    </a>
+    <a href="buahpb.html">
+        <button>Buah</button>
+    </a>
+    <a href="bumbudasarpb.html">
+        <button>Bumbu Dasar</button>
+    </a>
+    <a href="bumbumasakpb.html">
+        <button>Bumbu Masak</button>
+    </a>
+    <a href="dagingpb.html">
+        <button>Daging</button>
+    </a>
+    <a href="ikanpb.html">
+        <button>Ikan</button>
+    </a>
+    <a href="makananinstanpb.html">
+        <button>Makanan Instan</button>
+    </a>
+    <button class="active">Protein</button>
+    <a href="sayurpb.html">
+        <button>Sayur</button>
+    </a>
+    <a href="gaspb.html">
+        <button>Gas</button>
+    </a>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products">
+    <div class="card">
+    <img src="gambar/tahumentah1kg.jpeg">
+    <div>
+        <h3>Tahu Mentah 1 Kg</h3>
+        <p><strong>Rp 13.263 / kg</strong></p>
+        <p class="down">↓ -0,29% (Rp -39)</p>
+        <div class="sparkline green"></div>
+    </div>
+</div>
+
+<div class="card">
+    <img src="gambar/telurayamkampung.jpeg">
+    <div>
+        <h3>Telur Ayam Kampung</h3>
+        <p><strong>Rp 14.549 / kg</strong></p>
+        <p class="up">↑ 0,71% (Rp 103)</p>
+        <div class="sparkline red"></div>
+    </div>
+</div>
+
+<div class="card">
+    <img src="gambar/telurayamras.jpeg">
+    <div>
+        <h3>Telur Ayam Ras</h3>
+        <p><strong>Rp 18.894 / ltr</strong></p>
+        <p class="down">↓ -0,55% (Rp -104)</p>
+        <div class="sparkline green"></div>
+    </div>
+</div>
+
+<div class="card">
+    <img src="gambar/tempe1kg.jpeg">
+    <div>
+        <h3>Tempe 1 Kg</h3>
+        <p><strong>Rp 19.975 / ltr</strong></p>
+        <p class="down">↓ -0,55% (Rp -104)</p>
+        <div class="sparkline green"></div>
+    </div>
+</div>
+</section>
+
+<script>
+function toggleMenu() {
+    document.getElementById("menu").classList.toggle("show");
+}
+
+function openModal(){
+    document.getElementById("modal").style.display="flex";
+}
+
+function closeModal(){
+    document.getElementById("modal").style.display="none";
+}
+
+function copyText(id){
+    const input=document.getElementById(id);
+    input.select();
+    document.execCommand("copy");
+    alert("Tersalin!");
+}
+</script>
+
+
+<!-- FOOTER -->
+<footer>
+
+<div class="footer-container">
+
+<div>
+<div class="footer-title">Kontak</div>
+
+<div class="footer-item">
+<i class="fa-solid fa-location-dot"></i>
+<span>Jl. Ahmad Yani No.1 Kota Bekasi</span>
+</div>
+
+<div class="footer-item">
+<i class="fa-solid fa-envelope"></i>
+<span>pangan@bekasikota.go.id</span>
+</div>
+
+<div class="footer-item">
+<i class="fa-solid fa-phone"></i>
+<span>+62 812 3456 7890</span>
+</div>
+</div>
+
+<div>
+<div class="footer-title">Media Sosial</div>
+
+<div class="footer-social">
+<a href="#"><i class="fab fa-instagram"></i></a>
+<a href="#"><i class="fab fa-youtube"></i></a>
+<a href="#"><i class="fab fa-facebook"></i></a>
+<a href="#"><i class="fab fa-linkedin"></i></a>
+</div>
+
+</div>
+
+</div>
+
+<div class="footer-bottom">
+© 2026 Dashboard Pangan Kota Bekasi
+</div>
+
+</footer>
+<script>
+function pindahPasar(url) {
+    if (url !== "") {
+        window.location.href = url;
+    }
+}
+</script>
+
+</body>
+</html>

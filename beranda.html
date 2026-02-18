@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard Pangan Kota Bekasi</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+
+*{
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    margin:0;
+    background:#ffffff;
+    color:#222;
+}
+
+/* ================= NAVBAR ================= */
+
+.navbar {
+    background: #71c83b;
+    color: white;
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+
+.navbar{
+    position: relative;
+    z-index: 9999;
+}
+
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+}
+
+.logo img {
+    width: 50px;
+    height: 35px;
+}
+
+.menu {
+    display: flex;
+    gap: 20px;
+    transition: .3s;
+}
+
+
+.menu a {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+/* ================= HAMBURGER ================= */
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.hamburger span {
+    width: 24px;
+    height: 3px;
+    background: white;
+    border-radius: 2px;
+}
+
+/* ===== HERO ===== */
+.hero{
+    min-height:calc(100vh - 80px);
+    display:flex;
+    align-items:center;
+    padding:0 70px;
+    background:linear-gradient(120deg,#ffffff 60%, #e8f6dd);
+    position:relative;
+    overflow:hidden;
+}
+
+.hero::before{
+    content:"";
+    position:absolute;
+    width:350px;
+    height:350px;
+    background:#71c83b25;
+    border-radius:50%;
+    right:-120px;
+    top:-120px;
+}
+
+.hero::after{
+    content:"";
+    position:absolute;
+    width:260px;
+    height:260px;
+    background:#71c83b20;
+    border-radius:50%;
+    left:-80px;
+    bottom:-80px;
+}
+
+.hero-content{
+    width:55%;
+    z-index:2;
+}
+
+.hero-content h1{
+    font-size:42px;
+}
+
+.btn{
+    background:#71c83b;
+    color:#fff;
+    padding:14px 28px;
+    border-radius:14px;
+    text-decoration:none;
+    display:inline-block;
+    margin-top:20px;
+}
+
+.hero-visual{
+    width:45%;
+    display:flex;
+    justify-content:center;
+    z-index:2;
+}
+
+.hero-visual img{
+    width:100%;
+    max-width:340px;
+    animation:floating 4s ease-in-out infinite;
+}
+
+@keyframes floating{
+    0%{transform:translateY(0);}
+    50%{transform:translateY(-20px);}
+    100%{transform:translateY(0);}
+}
+
+/* ===== FOOTER ===== */
+footer{
+    background:#71c83b;
+    color:#ffffff;
+    padding:50px 60px 20px;
+}
+
+.footer-container{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:40px;
+}
+
+.footer-brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:15px;
+}
+
+.footer-brand img{
+    width: 65px;
+    height: 45px;
+}
+
+.footer-title{
+    font-weight:bold;
+    margin-bottom:10px;
+}
+
+.footer-social{
+    display:flex;
+    gap:12px;
+    margin-top:10px;
+}
+
+.footer-social a{
+    width:38px;
+    height:38px;
+    border:1px solid #ffffff;
+    border-radius:10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#fff;
+    transition:.3s;
+}
+
+.footer-social a:hover{
+    background:#ffffff;
+    color:#71c83b;
+}
+
+.footer-bottom{
+    margin-top:30px;
+    text-align:center;
+    border-top:1px solid rgba(255,255,255,.4);
+    padding-top:14px;
+    font-size:14px;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 768px) {
+    .filter-row {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+
+.hamburger {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    z-index: 10000;
+}
+
+.hamburger span {
+    width: 28px;
+    height: 3px;
+    background: #fff;
+    border-radius: 3px;
+}
+
+/* MENU DROPDOWN MOBILE */
+
+.menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: #8ecf5a;
+    flex-direction: column;
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
+    transition: .3s ease;
+}
+
+.menu.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.menu a {
+    padding: 20px;
+    font-size: 18px;
+    border-top: 1px solid rgba(255,255,255,.4);
+}
+
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<header class="navbar">
+    <div class="logo">
+        <img src="Biru dan Kuning Ilustrasi Manajemen Risiko dalam Menghadapi Perekonomian Presentation (2).png " alt="Logo">
+        <span>DASHBOARD<br><strong>KOTA BEKASI</strong></span>
+    </div>
+
+    <div class="hamburger" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <nav class="menu" id="menu">
+        <a href="beranda.html">Beranda</a>
+        <a href="tentang.html">Tentang</a>
+    </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+
+<div class="hero-content">
+<h1>Visualisasi Data Pangan Kota Bekasi</h1>
+<p>
+Menyajikan data harga pangan berdasarkan pasar tradisional Kota Bekasi secara informatif dan digital.
+</p>
+
+<a href="index.html" class="btn">Lihat Dashboard</a>
+</div>
+
+<div class="hero-visual">
+<img src="animasi.png">
+</div>
+
+</section>
+
+<!-- FOOTER -->
+<footer>
+
+<div class="footer-container">
+
+<div>
+<div class="footer-brand">
+<img src="Biru dan Kuning Ilustrasi Manajemen Risiko dalam Menghadapi Perekonomian Presentation (2).png">
+<span>Dashboard Pangan Kota Bekasi</span>
+</div>
+
+<p>
+Jl. Ahmad Yani No.1 Kota Bekasi <br>
+Bekasi Selatan, Jawa Barat 17141
+</p>
+</div>
+
+<div>
+<div class="footer-title">Kontak</div>
+<p><i class="fa-solid fa-phone"></i> +62 812 3456 7890</p>
+<p><i class="fa-solid fa-envelope"></i> pangan@bekasikota.go.id</p>
+</div>
+
+<div>
+<div class="footer-title">Media Sosial</div>
+
+<div class="footer-social">
+<a href="#"><i class="fab fa-linkedin"></i></a>
+<a href="#"><i class="fab fa-instagram"></i></a>
+<a href="#"><i class="fab fa-youtube"></i></a>
+</div>
+</div>
+
+</div>
+
+<div class="footer-bottom">
+Copyright © 2026 Pemerintah Kota Bekasi. All Right Reserved
+</div>
+
+</footer>
+
+<script>
+function toggleMenu() {
+    document.getElementById("menu").classList.toggle("show");
+}
+
+function openModal(){
+    document.getElementById("modal").style.display="flex";
+}
+
+function closeModal(){
+    document.getElementById("modal").style.display="none";
+}
+
+function copyText(id){
+    const input=document.getElementById(id);
+    input.select();
+    document.execCommand("copy");
+    alert("Tersalin!");
+}
+</script>
+
+</body>
+</html>
