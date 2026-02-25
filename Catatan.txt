@@ -1,0 +1,49 @@
+“Untuk Project pangan Bekasi coba dibuat dinamis. Ada 2 bagian utama:
+👉 Backend (BE) = otak (ngatur data & logika)
+👉 Frontend (FE) = tampilan (yang dilihat user)”
+
+=== Untuk Menjalankan aplikasi BE ====
+
+1. Pastikan Environment Siap
+   - Composer
+   - XAMPP (MySQL + Apache)
+
+   Jika sudah di install cek terminal : 
+   - php -v
+   - composer -V
+
+2. Masuk ke Folder Project (BE)
+   cd nama-project
+
+3. Install Dependency
+   - composer install
+
+4. Copy File Environment
+   - copy .env.example .env
+
+5. Generate App Key
+   - php artisan key:generate
+
+6. Setting Database (PENTING)
+   - Buka file .env, lalu ubah:
+
+DB_DATABASE=nama_database
+DB_USERNAME=root
+DB_PASSWORD=
+
+
+👉 Pastikan:
+
+MySQL di XAMPP nyala
+
+Database sudah dibuat di phpMyAdmin
+
+7. Migrasi Database
+  - php artisan db:seed
+
+8. Jalankan Server Backend
+  - php artisan serve
+
+Nanti muncul:
+
+http://127.0.0.1:8000
