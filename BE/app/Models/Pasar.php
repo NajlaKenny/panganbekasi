@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Pasar extends Model
 {
-   protected $fillable = ['nama', 'alamat', 'is_active'];
+   protected $fillable = ['nama', 'alamat', 'status'];
 }
