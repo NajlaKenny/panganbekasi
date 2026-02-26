@@ -13,18 +13,18 @@ class PasarController extends Controller
      */
     public function index(Request $request)
     {
-        $query = \App\Models\Pasar::query();
+        $pasars = Pasar::query()
+            ->when($request->filled('search'), function ($query) use ($request) {
+                $search = $request->search;
 
-        if ($request->filled('search')) {
-            $search = $request->search;
-
-            $query->where(function ($q) use ($search) {
-                $q->where('nama', 'like', "%{$search}%")
-                    ->orWhere('alamat', 'like', "%{$search}%");
-            });
-        }
-
-        $pasars = $query->latest()->paginate(10)->withQueryString();
+                $query->where(function ($q) use ($search) {
+                    $q->where('nama', 'like', "%{$search}%")
+                        ->orWhere('alamat', 'like', "%{$search}%");
+                });
+            })
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
 
         return view('admin.pasars.index', compact('pasars'));
     }
@@ -74,9 +74,17 @@ class PasarController extends Controller
      */
     public function update(Request $request, Pasar $pasar)
     {
-        $pasar->update($request->all());
+        $validated = $request->validate([
+            'nama'   => 'required|string|max:255',
+            'alamat' => 'nullable|string',
+            'status' => 'required|in:aktif,nonaktif',
+        ]);
 
-        return redirect()->route('admin.pasars.index');
+        $pasar->update($validated);
+
+        return redirect()
+            ->route('pasars.index')
+            ->with('success', 'Data pasar berhasil diperbarui.');
     }
 
     /**
