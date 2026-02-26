@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Middleware\EnsureUserIsAdmin;
 use App\Http\Controllers\Admin\PasarController;
+use App\Http\Controllers\KategoriController;
 
 
 // Redirect root to login
@@ -43,4 +44,6 @@ Route::middleware(['auth', EnsureUserIsAdmin::class])->group(function () {
     
     // Pasar Management
     Route::resource('pasars', PasarController::class);
+
+    Route::resource('kategori', KategoriController::class);
 });
