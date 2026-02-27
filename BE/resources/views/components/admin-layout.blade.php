@@ -65,19 +65,22 @@
                     </svg>
                     Data Kategori
                 </a>
+                
+                 <!-- Data Barang -->
+                <a href="{{ route('komoditas.index') }}"
+   class="flex items-center px-4 py-2.5 text-sm font-medium rounded-lg transition-colors duration-200 group 
+   {{ request()->routeIs('komoditas.*') ? 'bg-indigo-50 text-indigo-700' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900' }}">
 
-                <!-- Data Barang -->
-                <a href=""
-                    class="flex items-center px-4 py-2.5 text-sm font-medium rounded-lg transition-colors duration-200 group {{ request()->routeIs('barang.*') ? 'bg-indigo-50 text-indigo-700' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900' }}">
+    <svg class="w-5 h-5 mr-3 
+        {{ request()->routeIs('komoditas.*') ? 'text-indigo-600' : 'text-gray-400 group-hover:text-gray-500' }}"
+        fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-width="2"
+            d="M20 13V7a2 2 0 00-2-2h-3V3H9v2H6a2 2 0 00-2 2v6m16 0v6a2 2 0 01-2 2H6a2 2 0 01-2-2v-6m16 0H4">
+        </path>
+    </svg>
 
-                    <svg class="w-5 h-5 mr-3 {{ request()->routeIs('barang.*') ? 'text-indigo-600' : 'text-gray-400 group-hover:text-gray-500' }}"
-                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-width="2"
-                            d="M20 13V7a2 2 0 00-2-2h-3V3H9v2H6a2 2 0 00-2 2v6m16 0v6a2 2 0 01-2 2H6a2 2 0 01-2-2v-6m16 0H4">
-                        </path>
-                    </svg>
-                    Data Barang
-                </a>
+    Data Barang
+</a>
 
                 <!-- Data Harga -->
                 <a href=""

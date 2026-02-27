@@ -9,6 +9,8 @@ use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Middleware\EnsureUserIsAdmin;
 use App\Http\Controllers\Admin\PasarController;
 use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\KomoditasController;
+use App\Http\Controllers\HargaController;
 
 
 // Redirect root to login
@@ -44,6 +46,9 @@ Route::middleware(['auth', EnsureUserIsAdmin::class])->group(function () {
     
     // Pasar Management
     Route::resource('pasars', PasarController::class);
-
+    // Kategori
     Route::resource('kategori', KategoriController::class);
+    // komoditas atau data barang
+    Route::resource('komoditas', KomoditasController::class);
+
 });
