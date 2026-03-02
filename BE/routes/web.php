@@ -49,6 +49,9 @@ Route::middleware(['auth', EnsureUserIsAdmin::class])->group(function () {
     // Kategori
     Route::resource('kategori', KategoriController::class);
     // komoditas atau data barang
-    Route::resource('komoditas', KomoditasController::class);
+   Route::resource('komoditas', KomoditasController::class)
+    ->parameters([
+        'komoditas' => 'komoditas'
+    ]);
 
 });

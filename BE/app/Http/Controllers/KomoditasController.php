@@ -45,9 +45,9 @@ class KomoditasController extends Controller
      * Tampilkan form edit
      */
     public function edit(Komoditas $komoditas)
-    {
-        return view('admin.komoditas.edit', compact('komoditas'));
-    }
+{
+    return view('admin.komoditas.edit', compact('komoditas'));
+}
 
     /**
      * Update data
