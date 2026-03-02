@@ -9,13 +9,16 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
-        Schema::create('harga_komoditas', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
-    }
+  public function up(): void
+{
+    Schema::create('harga_komoditas', function (Blueprint $table) {
+        $table->id();
+        $table->foreignId('komoditas_id')->constrained()->cascadeOnDelete();
+        $table->integer('harga');
+        $table->date('tanggal');
+        $table->timestamps();
+    });
+}
 
     /**
      * Reverse the migrations.

@@ -54,4 +54,9 @@ Route::middleware(['auth', EnsureUserIsAdmin::class])->group(function () {
         'komoditas' => 'komoditas'
     ]);
 
+    Route::resource('harga', HargaController::class)
+    ->parameters([
+        'harga' => 'harga'
+    ]);
+
 });
