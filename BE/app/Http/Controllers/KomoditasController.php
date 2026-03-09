@@ -3,70 +3,96 @@
 namespace App\Http\Controllers;
 
 use App\Models\Komoditas;
+use App\Models\Kategori;
 use Illuminate\Http\Request;
 
 class KomoditasController extends Controller
 {
     /**
-     * Tampilkan daftar data barang
+     * Menampilkan daftar komoditas
      */
     public function index()
     {
-        $komoditas = Komoditas::latest()->paginate(10);
+        $komoditas = Komoditas::with('kategori')
+            ->latest()
+            ->paginate(10);
 
         return view('admin.komoditas.index', compact('komoditas'));
     }
 
     /**
-     * Tampilkan form tambah data
+     * Form tambah komoditas
      */
     public function create()
-    {
-        return view('admin.komoditas.create');
-    }
-
-    /**
-     * Simpan data baru
-     */
-    public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'nama' => 'required|string|max:255'
-        ]);
-
-        Komoditas::create($validated);
-
-        return redirect()
-            ->route('komoditas.index')
-            ->with('success', 'Data Barang berhasil ditambahkan');
-    }
-
-    /**
-     * Tampilkan form edit
-     */
-    public function edit(Komoditas $komoditas)
 {
-    return view('admin.komoditas.edit', compact('komoditas'));
+    $kategoris = Kategori::all();
+
+    return view('admin.komoditas.create', compact('kategoris'));
 }
 
     /**
-     * Update data
+     * Simpan komoditas
+     */
+public function store(Request $request)
+{
+    $request->validate([
+        'nama' => 'required',
+        'kategori_id' => 'required',
+        'gambar' => 'nullable|image|mimes:jpg,jpeg,png|max:2048'
+    ]);
+
+    $data = [
+        'nama' => $request->nama,
+        'kategori_id' => $request->kategori_id
+    ];
+
+    if ($request->hasFile('gambar')) {
+
+        $path = $request->file('gambar')->store('komoditas', 'public');
+
+        $data['gambar'] = $path;
+    }
+
+    Komoditas::create($data);
+
+    return redirect()->route('komoditas.index')
+        ->with('success','Data berhasil ditambahkan');
+}
+
+    /**
+     * Form edit
+     */
+    public function edit(Komoditas $komoditas)
+    {
+        $kategoris = Kategori::all();
+
+        return view('admin.komoditas.edit', compact('komoditas', 'kategoris'));
+    }
+
+    /**
+     * Update komoditas
      */
     public function update(Request $request, Komoditas $komoditas)
     {
         $validated = $request->validate([
-            'nama' => 'required|string|max:255'
+            'nama' => 'required|string|max:255',
+            'kategori_id' => 'required|exists:kategoris,id',
+            'gambar' => 'nullable|image|mimes:jpg,jpeg,png|max:2048'
         ]);
+
+        if ($request->hasFile('gambar')) {
+            $validated['gambar'] = $request->file('gambar')->store('komoditas','public');
+        }
 
         $komoditas->update($validated);
 
         return redirect()
             ->route('komoditas.index')
-            ->with('success', 'Data Barang berhasil diupdate');
+            ->with('success', 'Data komoditas berhasil diperbarui');
     }
 
     /**
-     * Hapus data
+     * Hapus komoditas
      */
     public function destroy(Komoditas $komoditas)
     {
@@ -74,6 +100,6 @@ class KomoditasController extends Controller
 
         return redirect()
             ->route('komoditas.index')
-            ->with('success', 'Data Barang berhasil dihapus');
+            ->with('success', 'Data komoditas berhasil dihapus');
     }
 }

@@ -1,44 +1,147 @@
 <x-admin-layout>
 
-<div class="max-w-xl">
+<div class="flex justify-between items-center mb-6">
 
-    <h2 class="text-xl font-bold mb-5">
-        Edit Kategori
-    </h2>
+<h2 class="text-2xl font-bold">
+Data Komoditas
+</h2>
 
-    <form method="POST"
-        action="{{ route('kategori.update', $kategori) }}">
+<a href="{{ route('komoditas.create') }}"
+class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">
 
-        @csrf
-        @method('PUT')
+Tambah Barang
 
-        <div class="mb-4">
+</a>
 
-            <label class="block mb-2 font-medium">
-                Nama Kategori
-            </label>
+</div>
 
-            <input type="text"
-                name="nama"
-                value="{{ old('nama', $kategori->nama) }}"
-                class="border p-2 w-full rounded">
 
-            @error('nama')
-                <p class="text-red-600 mt-1">
-                    {{ $message }}
-                </p>
-            @enderror
+@if(session('success'))
+<div class="mb-4 p-3 bg-green-100 text-green-700 rounded">
+{{ session('success') }}
+</div>
+@endif
 
-        </div>
 
-        <button
-            class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600">
+<div class="bg-white rounded-lg shadow overflow-hidden">
 
-            Update
+<table class="w-full border-collapse">
 
-        </button>
+<thead class="bg-gray-100">
 
-    </form>
+<tr>
+
+<th class="p-3 text-left">No</th>
+<th class="p-3 text-left">Gambar</th>
+<th class="p-3 text-left">Nama Barang</th>
+<th class="p-3 text-left">Kategori</th>
+<th class="p-3 text-right">Aksi</th>
+
+</tr>
+
+</thead>
+
+
+<tbody>
+
+@forelse($komoditas as $index => $item)
+
+<tr class="border-t">
+
+<td class="p-3">
+{{ $komoditas->firstItem() + $index }}
+</td>
+
+
+<td class="p-3">
+
+@if($item->gambar)
+
+<img src="{{ asset('storage/'.$item->gambar) }}"
+width="60"
+class="rounded">
+
+@else
+
+<span class="text-gray-400">
+Tidak ada gambar
+</span>
+
+@endif
+
+</td>
+
+
+<td class="p-3">
+
+{{ $item->nama }}
+
+</td>
+
+
+<td class="p-3">
+
+{{ $item->kategori->nama ?? '-' }}
+
+</td>
+
+
+<td class="p-3 text-right space-x-2">
+
+<a href="{{ route('komoditas.edit',$item->id) }}"
+class="text-yellow-600">
+
+Edit
+
+</a>
+
+
+<form action="{{ route('komoditas.destroy',$item->id) }}"
+method="POST"
+class="inline">
+
+@csrf
+@method('DELETE')
+
+<button
+class="text-red-600"
+onclick="return confirm('Yakin hapus barang?')">
+
+Hapus
+
+</button>
+
+</form>
+
+</td>
+
+</tr>
+
+@empty
+
+<tr>
+
+<td colspan="5"
+class="text-center p-5 text-gray-500">
+
+Belum ada data barang
+
+</td>
+
+</tr>
+
+@endforelse
+
+</tbody>
+
+</table>
+
+</div>
+
+
+<div class="mt-4">
+
+{{ $komoditas->links() }}
 
 </div>
 

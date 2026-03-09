@@ -6,5 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Pasar extends Model
 {
-   protected $fillable = ['nama', 'alamat', 'status'];
+    protected $fillable = [
+        'nama',
+        'alamat',
+        'status'
+    ];
+
+    public function harga()
+    {
+        return $this->hasMany(Harga::class);
+    }
 }

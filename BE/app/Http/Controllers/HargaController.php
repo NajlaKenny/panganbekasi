@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Harga;
 use App\Models\Komoditas;
+use App\Models\Pasar;
 use Illuminate\Http\Request;
 
 class HargaController extends Controller
 {
     public function index()
     {
-        $hargas = Harga::with('komoditas')->latest()->paginate(10);
+        $hargas = Harga::with(['komoditas','pasar'])->latest()->paginate(10);
 
         return view('admin.harga.index', compact('hargas'));
     }
@@ -18,13 +19,16 @@ class HargaController extends Controller
     public function create()
     {
         $komoditas = Komoditas::all();
-        return view('admin.harga.create', compact('komoditas'));
+        $pasars = Pasar::all();
+
+        return view('admin.harga.create', compact('komoditas','pasars'));
     }
 
     public function store(Request $request)
     {
         $validated = $request->validate([
             'komoditas_id' => 'required',
+            'pasar_id' => 'required',
             'harga' => 'required|numeric',
             'tanggal' => 'required|date',
         ]);
@@ -36,15 +40,17 @@ class HargaController extends Controller
     }
 
     public function edit(Harga $harga)
-    {
-        $komoditas = Komoditas::all();
-        return view('admin.harga.edit', compact('harga', 'komoditas'));
-    }
+{
+    $komoditas = Komoditas::all();
+    $pasars = Pasar::all();
 
+    return view('admin.harga.edit', compact('harga','komoditas','pasars'));
+}
     public function update(Request $request, Harga $harga)
     {
         $validated = $request->validate([
             'komoditas_id' => 'required',
+            'pasar_id' => 'required',
             'harga' => 'required|numeric',
             'tanggal' => 'required|date',
         ]);

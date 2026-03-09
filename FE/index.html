@@ -586,12 +586,7 @@ footer{
             <option>Kota Bekasi</option>
         </select>
 
-<select onchange="pindahPasar(this.value)">
-    <option value="">Pilih Pasar</option>
-    <option value="index.html" selected>Pasar Atrium Pondok Gede</option>
-    <option value="indexpb.html" >Pasar Baru Bekasi</option>
-    <option value="kranji.html">Pasar Kranji</option>
-</select>
+<select id="pasarSelect"></select>
 
         <select>
             <option>Semua</option>
@@ -608,130 +603,10 @@ footer{
     </div>
 </section>
 
-<!-- CATEGORY -->
-<section class="category">
-    <button class="active">Beras, tepung, minyak</button>
-    <a href="buah.html">
-        <button>Buah</button>
-    </a>
-    <a href="bumbudasar.html">
-        <button>Bumbu Dasar</button>
-    </a>
-    <a href="bumbumasak.html">
-        <button>Bumbu Masak</button>
-    </a>
-    <a href="daging.html">
-        <button>Daging</button>
-    </a>
-    <a href="ikan.html">
-        <button>Ikan</button>
-    </a>
-    <a href="makananinstan.html">
-        <button>Makanan Instan</button>
-    </a>
-    <a href="protein.html">
-        <button>Protein</button>
-    </a>
-    <a href="sayur.html">
-        <button>Sayur</button>
-    </a>
-    <a href="gas.html">
-        <button>Gas</button>
-    </a>
-</section>
+<section class="category" id="kategoriBox"></section>
 
 <!-- PRODUCTS -->
-<section class="products">
-    <div class="card">
-    <img src="gambar/berasmedium.jpeg">
-    <div>
-        <h3>Beras Medium*</h3>
-        <p><strong>Rp 13.263 / kg</strong></p>
-        <p class="down">↓ -0,29% (Rp -39)</p>
-        <div class="sparkline green"></div>
-    </div>
-</div>
-
-<div class="card">
-    <img src="gambar/beraspremium.jpeg">
-    <div>
-        <h3>Beras Premium</h3>
-        <p><strong>Rp 14.549 / kg</strong></p>
-        <p class="up">↑ 0,71% (Rp 103)</p>
-        <div class="sparkline red"></div>
-    </div>
-</div>
-
-<div class="card">
-    <img src="gambar/mgrgcurah.jpeg">
-    <div>
-        <h3>Minyak Goreng Curah</h3>
-        <p><strong>Rp 18.894 / ltr</strong></p>
-        <p class="down">↓ -0,55% (Rp -104)</p>
-        <div class="sparkline green"></div>
-    </div>
-</div>
-
-<div class="card">
-    <img src="gambar/mgrgkmsn.jpeg">
-    <div>
-        <h3>Minyak Goreng (Kemasan)</h3>
-        <p><strong>Rp 19.975 / ltr</strong></p>
-        <p class="down">↓ -0,55% (Rp -104)</p>
-        <div class="sparkline green"></div>
-    </div>
-</div>
-
-<div class="card">
-    <img src="gambar/mnykkita.jpeg">
-    <div>
-        <h3>Minyak Goreng Kita</h3>
-        <p><strong>Rp 16.628 / kg</strong></p>
-        <p class="down">↓ -0,55% (Rp -104)</p>
-        <div class="sparkline green"></div>
-    </div>
-</div>
-
-<div class="card">
-    <img src="gambar/tpckrakmbr.jpeg">
-    <div>
-        <h3>Tepung Terigu Cakra Kembar</h3>
-        <p><strong>Rp 12.848 / kg</strong></p>
-        <p class="down">↓ -0,55% (Rp -104)</p>
-        <div class="sparkline green"></div>
-    </div>
-</div>
-
-<div class="card">
-    <img src="gambar/tptrgucrh.jpeg">
-    <div>
-        <h3>MTepung Terigu Curah</h3>
-        <p><strong>Rp 9.808 / kg</strong></p>
-        <p class="down">↓ -0,55% (Rp -104)</p>
-        <div class="sparkline green"></div>
-    </div>
-</div>
-
-<div class="card">
-    <img src="gambar/kncbr.jpeg">
-    <div>
-        <h3>Tepung Terigu Kunci Biru</h3>
-        <p><strong>Rp 14.372 / kg</strong></p>
-        <p class="down">↓ -0,55% (Rp -104)</p>
-        <div class="sparkline green"></div>
-    </div>
-</div>
-
-<div class="card">
-    <img src="gambar/sgtgbr.jpeg">
-    <div>
-        <h3>Tepung Terigu Segitiga Biru</h3>
-        <p><strong>Rp 13.731 / kg</strong></p>
-        <p class="down">↓ -0,55% (Rp -104)</p>
-        <div class="sparkline green"></div>
-    </div>
-</div>
-</section>
+<section class="products" id="products"></section>
 
 <script>
 function toggleMenu() {
@@ -796,11 +671,247 @@ Copyright © 2026 Pemerintah Kota Bekasi. All Right Reserved
 
 </footer>
 <script>
-function pindahPasar(url) {
-    if (url !== "") {
-        window.location.href = url;
-    }
+
+/* ================= MENU MOBILE ================= */
+
+function toggleMenu() {
+document.getElementById("menu").classList.toggle("show");
 }
+
+
+/* ================= SHARE MODAL ================= */
+
+function openModal(){
+document.getElementById("modal").style.display="flex";
+}
+
+function closeModal(){
+document.getElementById("modal").style.display="none";
+}
+
+
+/* ================= COPY LINK ================= */
+
+function copyText(id){
+
+const input=document.getElementById(id);
+
+input.select();
+
+document.execCommand("copy");
+
+alert("Tersalin!");
+
+}
+
+
+/* ================= PINDAH PASAR ================= */
+
+function pindahPasar(url) {
+
+if (url !== "") {
+
+window.location.href = url;
+
+}
+
+}
+
+
+/* ================= LOAD DATA DASHBOARD ================= */
+
+fetch("http://127.0.0.1:8000/api/dashboard")
+
+.then(response => response.json())
+
+.then(data => {
+
+const pasarSelect = document.getElementById("pasarSelect");
+const kategoriBox = document.getElementById("kategoriBox");
+const products = document.getElementById("products");
+
+
+/* ================= PASAR ================= */
+
+pasarSelect.innerHTML = "";
+
+data.pasars.forEach(pasar => {
+
+pasarSelect.innerHTML += `
+<option value="${pasar.id}">
+${pasar.nama}
+</option>
+`;
+
+});
+
+
+/* ================= FUNGSI TAMPILKAN PRODUK ================= */
+
+function tampilkanProduk(pasarId){
+
+products.innerHTML = "";
+
+data.hargas.forEach(item => {
+
+if(item.pasar_id == pasarId){
+
+products.innerHTML += `
+
+<div class="card">
+
+<img src="http://127.0.0.1:8000/storage/${item.komoditas.gambar}">
+
+<div>
+
+<h3>${item.komoditas.nama}</h3>
+
+<p>
+<strong>
+Rp ${Number(item.harga).toLocaleString()}
+</strong>
+</p>
+
+<p>${item.pasar.nama}</p>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+});
+
+}
+
+
+/* ================= FILTER KATEGORI ================= */
+
+function filterKategori(kategoriId){
+
+const pasarId = pasarSelect.value;
+
+products.innerHTML = "";
+
+data.hargas.forEach(item => {
+
+if(item.komoditas.kategori_id == kategoriId && item.pasar_id == pasarId){
+
+products.innerHTML += `
+
+<div class="card">
+
+<img src="http://127.0.0.1:8000/storage/${item.komoditas.gambar}">
+
+<div>
+
+<h3>${item.komoditas.nama}</h3>
+
+<p><strong>
+Rp ${Number(item.harga).toLocaleString()}
+</strong></p>
+
+<p>${item.pasar.nama}</p>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+});
+
+}
+
+
+/* ================= PASAR PERTAMA OTOMATIS ================= */
+
+if(data.pasars.length > 0){
+
+const firstPasar = data.pasars[0].id;
+
+pasarSelect.value = firstPasar;
+
+/* ambil kategori pertama */
+const firstKategori = data.kategoris[0].id;
+
+/* tampilkan produk sesuai kategori pertama */
+filterKategori(firstKategori);
+
+}
+
+
+/* ================= EVENT GANTI PASAR ================= */
+
+pasarSelect.addEventListener("change", function(){
+
+const pasarId = this.value;
+
+const activeKategori = document.querySelector("#kategoriBox .active");
+
+if(activeKategori){
+
+const kategoriId = activeKategori.dataset.id;
+
+filterKategori(kategoriId);
+
+}else{
+
+tampilkanProduk(pasarId);
+
+}
+
+});
+
+
+/* ================= KATEGORI ================= */
+
+kategoriBox.innerHTML = "";
+
+data.kategoris.forEach((kategori,index) => {
+
+kategoriBox.innerHTML += `
+<button class="${index === 0 ? 'active' : ''}" data-id="${kategori.id}">
+${kategori.nama}
+</button>
+`;
+
+});
+
+
+/* ================= EVENT CLICK KATEGORI ================= */
+
+const kategoriButtons = document.querySelectorAll("#kategoriBox button");
+
+kategoriButtons.forEach(btn => {
+
+btn.addEventListener("click", function(){
+
+kategoriButtons.forEach(b => b.classList.remove("active"));
+
+this.classList.add("active");
+
+const kategoriId = this.dataset.id;
+
+filterKategori(kategoriId);
+
+});
+
+});
+
+
+})
+
+.catch(error => {
+
+console.log("Error API:", error);
+
+});
+
 </script>
 
 

@@ -9,14 +9,21 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
-        Schema::create('komoditas', function (Blueprint $table) {
-            $table->id();
-            $table->string('nama');
-            $table->timestamps();
-        });
-    }
+public function up(): void
+{
+    Schema::create('komoditas', function (Blueprint $table) {
+        $table->id();
+        $table->string('nama');
+
+        $table->foreignId('kategori_id')
+              ->constrained('kategoris')
+              ->cascadeOnDelete();
+
+        $table->string('gambar')->nullable();
+
+        $table->timestamps();
+    });
+}
 
     /**
      * Reverse the migrations.
