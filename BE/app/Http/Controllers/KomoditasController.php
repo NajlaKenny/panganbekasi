@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Komoditas;
+use App\Models\Kategori;
 use Illuminate\Http\Request;
 
 class KomoditasController extends Controller
@@ -12,58 +13,95 @@ class KomoditasController extends Controller
      */
     public function index()
     {
-        $komoditas = Komoditas::latest()->paginate(10);
+        $komoditas = Komoditas::with('kategori')
+                    ->latest()
+                    ->paginate(10);
 
         return view('admin.komoditas.index', compact('komoditas'));
     }
+
 
     /**
      * Tampilkan form tambah data
      */
     public function create()
     {
-        return view('admin.komoditas.create');
+        $kategori = Kategori::all();
+
+        return view('admin.komoditas.create', compact('kategori'));
     }
 
+
     /**
-     * Simpan data baru
+     * Simpan data baru + upload gambar
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'nama' => 'required|string|max:255'
+        $request->validate([
+            'nama' => 'required|string|max:255',
+            'kategori_id' => 'required',
+            'gambar' => 'image|mimes:jpg,png,jpeg|max:2048'
         ]);
 
-        Komoditas::create($validated);
+        $path = null;
+
+        if ($request->hasFile('gambar')) {
+            $path = $request->file('gambar')->store('komoditas', 'public');
+        }
+
+        Komoditas::create([
+            'nama' => $request->nama,
+            'kategori_id' => $request->kategori_id,
+            'gambar' => $path
+        ]);
 
         return redirect()
             ->route('komoditas.index')
             ->with('success', 'Data Barang berhasil ditambahkan');
     }
 
+
     /**
      * Tampilkan form edit
      */
     public function edit(Komoditas $komoditas)
-{
-    return view('admin.komoditas.edit', compact('komoditas'));
-}
+    {
+        $kategori = Kategori::all();
+
+        return view(
+            'admin.komoditas.edit',
+            compact('komoditas', 'kategori')
+        );
+    }
+
 
     /**
-     * Update data
+     * Update data + optional ganti gambar
      */
     public function update(Request $request, Komoditas $komoditas)
     {
-        $validated = $request->validate([
-            'nama' => 'required|string|max:255'
+        $request->validate([
+            'nama' => 'required|string|max:255',
+            'kategori_id' => 'required',
+            'gambar' => 'image|mimes:jpg,png,jpeg|max:2048'
         ]);
 
-        $komoditas->update($validated);
+        $data = [
+            'nama' => $request->nama,
+            'kategori_id' => $request->kategori_id
+        ];
+
+        if ($request->hasFile('gambar')) {
+            $data['gambar'] = $request->file('gambar')->store('komoditas', 'public');
+        }
+
+        $komoditas->update($data);
 
         return redirect()
             ->route('komoditas.index')
             ->with('success', 'Data Barang berhasil diupdate');
     }
+
 
     /**
      * Hapus data

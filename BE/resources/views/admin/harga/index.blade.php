@@ -25,7 +25,6 @@
                 <th class="p-3 text-left">No</th>
                 <th class="p-3 text-left">Komoditas</th>
                 <th class="p-3 text-left">Harga</th>
-                <th class="p-3 text-left">Tanggal</th>
                 <th class="p-3 text-center">Aksi</th>
             </tr>
         </thead>
@@ -46,10 +45,7 @@
                     </td>
 
                     <td class="p-3">
-                        {{ \Carbon\Carbon::parse($item->tanggal)->format('d-m-Y') }}
-                    </td>
-
-                    <td class="p-3 text-center space-x-2">
+    <div class="flex justify-center gap-2">
 
                         <a href="{{ route('harga.edit', $item->id) }}"
                            class="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600">

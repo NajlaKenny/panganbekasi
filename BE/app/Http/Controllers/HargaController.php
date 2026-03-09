@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Harga;
 use App\Models\Komoditas;
+use App\Models\Pasar;
 use Illuminate\Http\Request;
 
 class HargaController extends Controller
@@ -18,18 +19,24 @@ class HargaController extends Controller
     public function create()
     {
         $komoditas = Komoditas::all();
-        return view('admin.harga.create', compact('komoditas'));
+        $pasars = Pasar::all();
+
+        return view('admin.harga.create', compact('komoditas','pasars'));
     }
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        $request->validate([
             'komoditas_id' => 'required',
+            'pasar' => 'required',
             'harga' => 'required|numeric',
-            'tanggal' => 'required|date',
         ]);
 
-        Harga::create($validated);
+        Harga::create([
+            'komoditas_id' => $request->komoditas_id,
+            'pasar' => $request->pasar,
+            'harga' => $request->harga,
+        ]);
 
         return redirect()->route('harga.index')
             ->with('success', 'Harga berhasil ditambahkan');
@@ -38,18 +45,24 @@ class HargaController extends Controller
     public function edit(Harga $harga)
     {
         $komoditas = Komoditas::all();
-        return view('admin.harga.edit', compact('harga', 'komoditas'));
+        $pasars = Pasar::all();
+
+        return view('admin.harga.edit', compact('harga','komoditas','pasars'));
     }
 
     public function update(Request $request, Harga $harga)
     {
-        $validated = $request->validate([
+        $request->validate([
             'komoditas_id' => 'required',
+            'pasar' => 'required',
             'harga' => 'required|numeric',
-            'tanggal' => 'required|date',
         ]);
 
-        $harga->update($validated);
+        $harga->update([
+            'komoditas_id' => $request->komoditas_id,
+            'pasar' => $request->pasar,
+            'harga' => $request->harga,
+        ]);
 
         return redirect()->route('harga.index')
             ->with('success', 'Harga berhasil diupdate');

@@ -19,13 +19,11 @@
 
         <div class="bg-white rounded-xl border shadow-sm">
 
-            <form method="POST"
-                action="{{ route('komoditas.store') }}"
-                class="p-6 space-y-6">
+            <form method="POST" action="{{ route('komoditas.store') }}" enctype="multipart/form-data">
 
                 @csrf
 
-                <!-- Nama -->
+                <!-- Nama Barang -->
                 <div>
                     <label class="block mb-2 font-medium">
                         Nama Barang
@@ -36,13 +34,35 @@
                         value="{{ old('nama') }}"
                         required
                         class="w-full border rounded-lg px-4 py-2">
-
-                    @error('nama')
-                        <p class="text-red-600 mt-1">
-                            {{ $message }}
-                        </p>
-                    @enderror
                 </div>
+
+
+                <!-- KATEGORI -->
+                <div>
+                    <label class="block mb-2 font-medium">
+                        Kategori
+                    </label>
+
+                    <select name="kategori_id"
+                        required
+                        class="w-full border rounded-lg px-4 py-2">
+
+                        <option value="">Pilih Kategori</option>
+
+                        @foreach($kategori as $k)
+                            <option value="{{ $k->id }}">
+                                {{ $k->nama }}
+                            </option>
+                        @endforeach
+
+                    </select>
+                </div>
+
+                <div>
+<label>Gambar</label>
+<input type="file" name="gambar" class="w-full border rounded-lg px-4 py-2">
+</div>
+
 
                 <div class="flex justify-end border-t pt-4">
                     <button type="submit"

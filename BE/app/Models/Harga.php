@@ -6,11 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Harga extends Model
 {
-    protected $table = 'harga_komoditas';
+    protected $table = 'harga';
+
     protected $fillable = [
         'komoditas_id',
+        'pasar',
         'harga',
-        'tanggal'
+        'perubahan'
     ];
 
     public function komoditas()

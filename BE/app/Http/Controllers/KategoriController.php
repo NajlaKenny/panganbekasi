@@ -33,7 +33,7 @@ class KategoriController extends Controller
         ]);
 
         return redirect()
-            ->route('kategori.index') // ✅ BUKAN admin.kategori.index
+            ->route('kategori.index') 
             ->with('success', 'Kategori berhasil ditambahkan');
     }
 
@@ -55,7 +55,7 @@ class KategoriController extends Controller
         ]);
 
         return redirect()
-            ->route('kategori.index') // ✅ BUKAN admin.kategori.index
+            ->route('kategori.index') 
             ->with('success', 'Kategori berhasil diupdate');
     }
 
@@ -65,7 +65,7 @@ class KategoriController extends Controller
         $kategori->delete();
 
         return redirect()
-            ->route('kategori.index') // ✅ BUKAN admin.kategori.index
+            ->route('kategori.index') 
             ->with('success', 'Kategori berhasil dihapus');
     }
 }
