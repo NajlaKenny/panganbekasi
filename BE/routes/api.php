@@ -1,15 +1,38 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Models\Pasar;
 use App\Models\Kategori;
 use App\Models\Komoditas;
 use App\Models\Harga;
-use App\Models\Pasar;
 
+/*
+|--------------------------------------------------------------------------
+| API Routes
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/dashboard', function () {
+
+    return response()->json([
+        'pasars' => Pasar::all(),
+        'kategoris' => Kategori::all(),
+        'komoditas' => Komoditas::all(),
+        'hargas' => Harga::with(['komoditas','pasar'])->get()
+    ]);
+
+});
+
+
+// ========================
+// API PASAR
+// ========================
 
 Route::get('/pasars', function () {
     return Pasar::select('id','nama')->get();
 });
+
+
 // ========================
 // API KATEGORI
 // ========================
@@ -42,9 +65,9 @@ Route::get('/harga', function () {
 
     $pasar = request('pasar');
 
-    return Harga::with('komoditas')
+    return Harga::with(['komoditas','pasar'])
         ->when($pasar, function($q) use ($pasar){
-            $q->where('pasar', $pasar);
+            $q->where('pasar_id', $pasar);
         })
         ->get();
 

@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 
 class KategoriController extends Controller
 {
-    // tampilkan data kategori
+    /**
+     * Tampilkan daftar kategori
+     */
     public function index()
     {
         $kategoris = Kategori::latest()->paginate(10);
@@ -15,57 +17,76 @@ class KategoriController extends Controller
         return view('admin.kategori.index', compact('kategoris'));
     }
 
-    // form tambah
+    /**
+     * Form tambah kategori
+     */
     public function create()
     {
         return view('admin.kategori.create');
     }
 
-    // simpan data
+    /**
+     * Simpan kategori baru
+     */
     public function store(Request $request)
     {
-        $request->validate([
-            'nama' => 'required'
+        $validated = $request->validate([
+            'nama' => 'required|string|max:255'
         ]);
 
-        Kategori::create([
-            'nama' => $request->nama
-        ]);
+        Kategori::create($validated);
 
         return redirect()
+<<<<<<< HEAD
             ->route('kategori.index') 
+=======
+            ->route('kategori.index')
+>>>>>>> 8093ad7a7730c68ece7e7f445ecd30eb6fe0479e
             ->with('success', 'Kategori berhasil ditambahkan');
     }
 
-    // form edit
+    /**
+     * Form edit kategori
+     */
     public function edit(Kategori $kategori)
     {
         return view('admin.kategori.edit', compact('kategori'));
     }
 
-    // update data
+    /**
+     * Update kategori
+     */
     public function update(Request $request, Kategori $kategori)
     {
-        $request->validate([
-            'nama' => 'required'
+        $validated = $request->validate([
+            'nama' => 'required|string|max:255'
         ]);
 
-        $kategori->update([
-            'nama' => $request->nama
-        ]);
+        $kategori->update($validated);
 
         return redirect()
+<<<<<<< HEAD
             ->route('kategori.index') 
             ->with('success', 'Kategori berhasil diupdate');
+=======
+            ->route('kategori.index')
+            ->with('success', 'Kategori berhasil diperbarui');
+>>>>>>> 8093ad7a7730c68ece7e7f445ecd30eb6fe0479e
     }
 
-    // hapus data
+    /**
+     * Hapus kategori
+     */
     public function destroy(Kategori $kategori)
     {
         $kategori->delete();
 
         return redirect()
+<<<<<<< HEAD
             ->route('kategori.index') 
+=======
+            ->route('kategori.index')
+>>>>>>> 8093ad7a7730c68ece7e7f445ecd30eb6fe0479e
             ->with('success', 'Kategori berhasil dihapus');
     }
 }

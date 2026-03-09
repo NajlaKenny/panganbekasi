@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+<<<<<<< HEAD
     public function up(): void
     {
         Schema::create('harga', function (Blueprint $table) {
@@ -17,6 +18,30 @@ return new class extends Migration
             $table->timestamps();
         });
     }
+=======
+    /**
+     * Run the migrations.
+     */
+public function up(): void
+{
+    Schema::create('harga_komoditas', function (Blueprint $table) {
+        $table->id();
+
+        $table->foreignId('komoditas_id')
+              ->constrained('komoditas')
+              ->cascadeOnDelete();
+
+        $table->foreignId('pasar_id')
+              ->constrained('pasars')
+              ->cascadeOnDelete();
+
+        $table->integer('harga');
+        $table->date('tanggal');
+
+        $table->timestamps();
+    });
+}
+>>>>>>> 8093ad7a7730c68ece7e7f445ecd30eb6fe0479e
 
     public function down(): void
     {
