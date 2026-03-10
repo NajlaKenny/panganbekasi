@@ -26,43 +26,36 @@ class HargaController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'komoditas_id' => 'required',
             'pasar_id' => 'required',
             'harga' => 'required|numeric',
+            'tanggal' => 'required|date',
         ]);
 
-        Harga::create([
-            'komoditas_id' => $request->komoditas_id,
-            'pasar_id' => $request->pasar_id,
-            'harga' => $request->harga,
-        ]);
+        Harga::create($validated);
 
         return redirect()->route('harga.index')
             ->with('success', 'Harga berhasil ditambahkan');
     }
 
     public function edit(Harga $harga)
-    {
-        $komoditas = Komoditas::all();
-        $pasars = Pasar::all();
+{
+    $komoditas = Komoditas::all();
+    $pasars = Pasar::all();
 
-        return view('admin.harga.edit', compact('harga','komoditas','pasars'));
-    }
-
+    return view('admin.harga.edit', compact('harga','komoditas','pasars'));
+}
     public function update(Request $request, Harga $harga)
     {
-        $request->validate([
+        $validated = $request->validate([
             'komoditas_id' => 'required',
             'pasar_id' => 'required',
             'harga' => 'required|numeric',
+            'tanggal' => 'required|date',
         ]);
 
-        $harga->update([
-            'komoditas_id' => $request->komoditas_id,
-            'pasar_id' => $request->pasar_id,
-            'harga' => $request->harga,
-        ]);
+        $harga->update($validated);
 
         return redirect()->route('harga.index')
             ->with('success', 'Harga berhasil diupdate');

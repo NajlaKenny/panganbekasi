@@ -12,7 +12,7 @@ class Harga extends Model
         'komoditas_id',
         'pasar_id',
         'harga',
-        'perubahan'
+        'tanggal'
     ];
 
     public function komoditas()

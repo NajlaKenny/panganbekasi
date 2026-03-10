@@ -6,25 +6,28 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    public function up(): void
-    {
-        Schema::create('harga_komoditas', function (Blueprint $table) {
-            $table->id();
+    /**
+     * Run the migrations.
+     */
+public function up(): void
+{
+    Schema::create('harga_komoditas', function (Blueprint $table) {
+        $table->id();
 
-            $table->foreignId('komoditas_id')
-                ->constrained('komoditas')
-                ->cascadeOnDelete();
+        $table->foreignId('komoditas_id')
+              ->constrained('komoditas')
+              ->cascadeOnDelete();
 
-            $table->foreignId('pasar_id')
-                ->constrained('pasars')
-                ->cascadeOnDelete();
+        $table->foreignId('pasar_id')
+              ->constrained('pasars')
+              ->cascadeOnDelete();
 
-            $table->integer('harga');
-            $table->date('tanggal');
+        $table->integer('harga');
+        $table->date('tanggal');
 
-            $table->timestamps();
-        });
-    }
+        $table->timestamps();
+    });
+}
 
     /**
      * Reverse the migrations.
