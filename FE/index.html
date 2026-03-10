@@ -594,12 +594,9 @@ footer{
     </div>
 
     <div class="market-info">
-        <strong>Kota Bekasi - Pasar Atrium Pondok Gede</strong>
-        <div>
-            <span class="down">↓ Turun</span>
-            <span class="up">↑ Naik</span>
-            <span class="same">– Tetap</span>
-        </div>
+       <strong id="judulPasar">Kota Bekasi - Pasar Atrium Pondok Gede</strong>
+
+        
     </div>
 </section>
 
@@ -729,6 +726,7 @@ fetch("http://127.0.0.1:8000/api/dashboard")
 const pasarSelect = document.getElementById("pasarSelect");
 const kategoriBox = document.getElementById("kategoriBox");
 const products = document.getElementById("products");
+const judulPasar = document.getElementById("judulPasar");
 
 
 /* ================= PASAR ================= */
@@ -754,6 +752,10 @@ products.innerHTML = "";
 
 data.hargas.forEach(item => {
 
+const tgl = item.tanggal.split("-");
+
+const tanggal = `${tgl[2]}-${tgl[1]}-${tgl[0]}`;
+
 if(item.pasar_id == pasarId){
 
 products.innerHTML += `
@@ -773,6 +775,10 @@ Rp ${Number(item.harga).toLocaleString()}
 </p>
 
 <p>${item.pasar.nama}</p>
+
+<p style="font-size:12px;color:#777">
+${tanggal}
+</p>
 
 </div>
 
@@ -797,6 +803,9 @@ products.innerHTML = "";
 
 data.hargas.forEach(item => {
 
+const tgl = item.tanggal.split("-");
+const tanggal = `${tgl[2]}-${tgl[1]}-${tgl[0]}`;
+
 if(item.komoditas.kategori_id == kategoriId && item.pasar_id == pasarId){
 
 products.innerHTML += `
@@ -814,6 +823,10 @@ Rp ${Number(item.harga).toLocaleString()}
 </strong></p>
 
 <p>${item.pasar.nama}</p>
+
+<p style="font-size:12px;color:#777">
+${tanggal}
+</p>
 
 </div>
 
@@ -836,6 +849,9 @@ const firstPasar = data.pasars[0].id;
 
 pasarSelect.value = firstPasar;
 
+const pasarNama = pasarSelect.options[pasarSelect.selectedIndex].text;
+judulPasar.innerText = "Kota Bekasi - " + pasarNama;
+
 /* ambil kategori pertama */
 const firstKategori = data.kategoris[0].id;
 
@@ -850,6 +866,9 @@ filterKategori(firstKategori);
 pasarSelect.addEventListener("change", function(){
 
 const pasarId = this.value;
+
+const pasarNama = this.options[this.selectedIndex].text;
+judulPasar.innerText = "Kota Bekasi - " + pasarNama;
 
 const activeKategori = document.querySelector("#kategoriBox .active");
 
