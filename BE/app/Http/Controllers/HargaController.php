@@ -28,17 +28,13 @@ class HargaController extends Controller
     {
         $request->validate([
             'komoditas_id' => 'required',
-<<<<<<< HEAD
-            'pasar' => 'required',
-=======
             'pasar_id' => 'required',
->>>>>>> 8093ad7a7730c68ece7e7f445ecd30eb6fe0479e
             'harga' => 'required|numeric',
         ]);
 
         Harga::create([
             'komoditas_id' => $request->komoditas_id,
-            'pasar' => $request->pasar,
+            'pasar_id' => $request->pasar_id,
             'harga' => $request->harga,
         ]);
 
@@ -47,36 +43,24 @@ class HargaController extends Controller
     }
 
     public function edit(Harga $harga)
-<<<<<<< HEAD
     {
         $komoditas = Komoditas::all();
         $pasars = Pasar::all();
 
         return view('admin.harga.edit', compact('harga','komoditas','pasars'));
     }
-=======
-{
-    $komoditas = Komoditas::all();
-    $pasars = Pasar::all();
->>>>>>> 8093ad7a7730c68ece7e7f445ecd30eb6fe0479e
 
-    return view('admin.harga.edit', compact('harga','komoditas','pasars'));
-}
     public function update(Request $request, Harga $harga)
     {
         $request->validate([
             'komoditas_id' => 'required',
-<<<<<<< HEAD
-            'pasar' => 'required',
-=======
             'pasar_id' => 'required',
->>>>>>> 8093ad7a7730c68ece7e7f445ecd30eb6fe0479e
             'harga' => 'required|numeric',
         ]);
 
         $harga->update([
             'komoditas_id' => $request->komoditas_id,
-            'pasar' => $request->pasar,
+            'pasar_id' => $request->pasar_id,
             'harga' => $request->harga,
         ]);
 

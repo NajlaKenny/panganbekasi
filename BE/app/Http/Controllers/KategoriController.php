@@ -37,11 +37,7 @@ class KategoriController extends Controller
         Kategori::create($validated);
 
         return redirect()
-<<<<<<< HEAD
-            ->route('kategori.index') 
-=======
             ->route('kategori.index')
->>>>>>> 8093ad7a7730c68ece7e7f445ecd30eb6fe0479e
             ->with('success', 'Kategori berhasil ditambahkan');
     }
 
@@ -65,13 +61,8 @@ class KategoriController extends Controller
         $kategori->update($validated);
 
         return redirect()
-<<<<<<< HEAD
-            ->route('kategori.index') 
-            ->with('success', 'Kategori berhasil diupdate');
-=======
             ->route('kategori.index')
             ->with('success', 'Kategori berhasil diperbarui');
->>>>>>> 8093ad7a7730c68ece7e7f445ecd30eb6fe0479e
     }
 
     /**
@@ -82,11 +73,7 @@ class KategoriController extends Controller
         $kategori->delete();
 
         return redirect()
-<<<<<<< HEAD
-            ->route('kategori.index') 
-=======
             ->route('kategori.index')
->>>>>>> 8093ad7a7730c68ece7e7f445ecd30eb6fe0479e
             ->with('success', 'Kategori berhasil dihapus');
     }
 }
